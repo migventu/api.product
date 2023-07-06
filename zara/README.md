@@ -5,6 +5,7 @@
 
 ### 1.  Funcionalidad
 Parametro de entrada:fecha de aplicación, identificador de producto, identificador de cadena.
+
 Parametros de salida:identificador de producto, identificador de cadena, tarifa a aplicar, fechas de aplicación y precio final a aplicar.
 
 

@@ -33,7 +33,7 @@ public class PricesController {
 	 * @return ResponseEntity Prices
 	 */
 	@GetMapping(value = "/prices")
-	public ResponseEntity<Prices> getPrices(
+	public ResponseEntity<Prices> getPrices (
 			@RequestParam(value = "fechaAplicacion", required = true) String fechaAplicacion,
 			@RequestParam(value = "idProducto", required = true) Long idProducto,
 			@RequestParam(value = "idCadena", required = true) Long idCadena) {

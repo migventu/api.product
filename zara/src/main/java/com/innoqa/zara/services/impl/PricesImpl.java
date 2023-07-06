@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.innoqa.zara.dao.Prices;
+import com.innoqa.zara.exception.BusinessException;
 import com.innoqa.zara.repository.IPricesRepository;
 import com.innoqa.zara.services.IPricesServices;
 import com.innoqa.zara.util.Fechas;
@@ -32,14 +33,14 @@ public class PricesImpl implements IPricesServices {
 	Fechas fechas;
 
 	@Override
-	public Optional<Prices> getPrice(String fechaAplicacion, Long idProducto, Long idCadena) {
+	public Optional<Prices> getPrice(String fechaAplicacion, Long idProducto, Long idCadena){
 		LocalDateTime dateTime = fechas.localDateTimeToString(fechaAplicacion);
 		Predicate<Prices> filterPredicate = x -> x.getStartDate().isBefore(dateTime) && x.getEndDate().isAfter(dateTime)
 				&& x.getProductId().equals(idProducto) && x.getBrandId().getId().equals(idCadena);
 		List<Prices> prices = getPrices().parallelStream().filter(filterPredicate).collect(Collectors.toList());
 		if (prices.stream().count() > 1) {
 			return prices.stream().max(Comparator.comparing(Prices::getPriority));
-		} else {
+		} else{
 			return prices.stream().findFirst();
 		}
 	}
